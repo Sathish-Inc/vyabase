@@ -1,0 +1,337 @@
+<!--
+* Copyright 2020 Vyasaka Technologies. All Rights Reserved.
+-->
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-bars"></i><strong>Vessel Management</strong>
+    <span class="float-right">
+      <i
+        class="fa fa-refresh"
+        style="cursor: pointer;"
+        aria-hidden="true"
+        (click)="refreshPage()"
+        data-toggle="tooltip"
+        title="Refresh"
+      ></i>
+      <i
+        class="fa fa-plus"
+        [routerLink]="['/vessel-management/add']"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        title="Add"
+        style="cursor: pointer;"
+      ></i>
+      <div class="btn-group" dropdown>
+        <i
+          class="fa fa-snowflake-o circle-icon"
+          aria-hidden="true"
+          data-toggle="tooltip"
+          title="Apps"
+          style="cursor: pointer;"
+          id="button-split"
+          dropdownToggle
+          aria-controls="dropdown-split"
+        ></i>
+        <ul
+          id="dropdown-split"
+          *dropdownMenu
+          class="dropdown-menu  dropdown-menu-right"
+          role="menu"
+          aria-labelledby="button-split"
+        >
+          <div class="view"><label>View</label></div>
+          <li role="menuitem" class="form-control">
+            <table>
+              <tr>
+                <td>
+                  <i
+                    class="fa fa-table"
+                    data-toggle="tooltip"
+                    title="Table"
+                    (click)="displayView = 'table'"
+                  ></i>
+                </td>
+                <td>
+                  <i
+                    class="fa fa-th-large"
+                    data-toggle="tooltip"
+                    title="Table"
+                    (click)="displayView = 'card'"
+                  ></i>
+                </td>
+                <td class="disable">
+                  <i
+                    class="fa fa-list"
+                    aria-hidden="true"
+                    data-toggle="tooltip"
+                    title="List"
+                    [routerLink]="['/grid']"
+                    style="cursor: pointer;"
+                  ></i>
+                </td>
+                <td class="disable">
+                  <i class="fa fa-th" data-toggle="tooltip" title="Grid"></i>
+                </td>
+                <td class="disable">
+                  <i
+                    class="fa fa-address-card-o"
+                    data-toggle="tooltip"
+                    title="Card"
+                  ></i>
+                </td>
+                <td class="disable">
+                  <i
+                    class="fa fa-calendar"
+                    data-toggle="tooltip"
+                    title="Calendar"
+                  ></i>
+                </td>
+              </tr>
+            </table>
+          </li>
+          <li role="menuitem"></li>
+        </ul>
+      </div>
+    </span>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <!-- Search :: start -->
+      <div class="form-group col-sm-2 col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-search"></i>
+            </span>
+          </div>
+          <input
+            class="form-control"
+            [(ngModel)]="searchText"
+            id="searchText"
+            placeholder="search"
+          />
+        </div>
+      </div>
+      <!-- Search :: end -->
+      <!-- Filter :: Start -->
+      <div class="form-group col-sm-2 col-md-4">
+        <div class="form-group col-md-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i
+                  class="fa fa-filter"
+                  [attr.aria-expanded]="!isCollapsed"
+                  aria-controls="collapseBasic"
+                  (click)="isCollapsed = !isCollapsed"
+                ></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="com-sm-12 col-md-12">
+        <form FormGroup="filterForm" class="form-horizontal">
+          <div class="card" [isAnimated]="true" [collapse]="isCollapsed">
+            <div class="card-body">
+              <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-4"></div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12 mb-2">
+                <div style="text-align: center;">
+                  <!-- Reset :: start -->
+                  <button
+                    class="btn btn-sm btn-danger mx-1"
+                    type="reset"
+                    (click)="reset()"
+                  >
+                    Reset
+                  </button>
+                  <!-- Reset :: end -->
+
+                  <!-- Apply :: start -->
+                  <button
+                    class="btn btn-sm btn-success mx-1"
+                    type="button"
+                    (click)="applyFilter()"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Filter :: end -->
+    </div>
+
+    <!-- table :: start -->
+    <table class="table table-responsive-sm table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          <th>IMO No</th>
+          <th>Vessel Name</th>
+          <th>Ship Type</th>
+          <th>Flag</th>
+          <th>Home Port</th>
+          <th>Year</th>
+          <th>Gross Tonnage</th>
+          <th>Beam</th>
+          <th>Reg.Owner</th>
+          <th>Manager</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="actualList === true">
+        <tr
+          *ngFor="
+            let element of vesselManagementData
+              | searchPipe: searchText
+              | paginate: { itemsPerPage: defaultPagination, currentPage: page }
+          "
+        >
+          <td>
+            <label class="switch switch-label switch-pill switch-primary">
+              <input
+                type="checkbox"
+                class="switch-input"
+                [ngModel]="isChecked"
+                (ngModelChange)="getSelectedId($event, element._id)"
+              />
+              <span
+                class="switch-slider"
+                data-checked="&#x2713;"
+                data-unchecked="&#x2715;"
+              ></span>
+            </label>
+
+            <span *ngIf="checkedIdList.length === 1 && id === element._id">
+              <div class="btn-group master" dropdown>
+                <i
+                  class="fa fa-ellipsis-v vertical-icon"
+                  aria-hidden="true"
+                  id="button-split"
+                  type="button"
+                  dropdownToggle
+                  aria-controls="dropdown-split"
+                ></i>
+                <ul
+                  id="dropdown-split"
+                  *dropdownMenu
+                  class="dropdown-menu  dropdown-menu-left"
+                  role="menu"
+                  aria-labelledby="button-split"
+                >
+                  <li role="menuitem">
+                    <a
+                      class="dropdown-item"
+                      (click)="editDocument(element._id.split('::')[1])"
+                      >Edit</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      (click)="viewDocument(element._id.split('::')[1])"
+                      >View</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      (click)="onDelete(element._id.split('::')[1])"
+                      >Delete</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </span>
+          </td>
+          <td>{{ element.imoNumber }}</td>
+          <td>{{ element.vesselName }}</td>
+          <td>{{ element.shipType }}</td>
+          <td>{{ element.flag }}</td>
+          <td>{{ element.homePort }}</td>
+          <td>{{ element.yearOfBuilt }}</td>
+          <td>{{ element.grossTonnage }}</td>
+          <td>{{ element.beam }}</td>
+          <td>{{ element.registeredOwner }}</td>
+          <td>{{ element.manager }}</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="filterStatus === true">
+        <tr
+          *ngFor="
+            let element of vesselManagementData
+              | searchPipe: searchText
+              | paginate: { itemsPerPage: 25, currentPage: page }
+          "
+        >
+          <td>
+            <label class="switch switch-label switch-pill switch-primary">
+              <input
+                type="checkbox"
+                class="switch-input"
+                [ngModel]="isChecked"
+                (ngModelChange)="getSelectedId($event, element._id)"
+              />
+              <span
+                class="switch-slider"
+                data-checked="&#x2713;"
+                data-unchecked="&#x2715;"
+              ></span>
+            </label>
+
+            <span *ngIf="checkedIdList.length === 1 && id === element._id">
+              <div class="btn-group master" dropdown>
+                <i
+                  class="fa fa-ellipsis-v vertical-icon"
+                  aria-hidden="true"
+                  id="button-split"
+                  type="button"
+                  dropdownToggle
+                  aria-controls="dropdown-split"
+                ></i>
+                <ul
+                  id="dropdown-split"
+                  *dropdownMenu
+                  class="dropdown-menu  dropdown-menu-left"
+                  role="menu"
+                  aria-labelledby="button-split"
+                >
+                  <li role="menuitem">
+                    <a class="dropdown-item" (click)="editDocument(element._id)"
+                      >Edit</a
+                    >
+                    <a class="dropdown-item" (click)="viewDocument(element._id)"
+                      >View</a
+                    >
+                    <a class="dropdown-item" (click)="onDelete(element._id)"
+                      >Delete</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </span>
+          </td>
+          <td>{{ element.imoNumber }}</td>
+          <td>{{ element.vesselName }}</td>
+          <td>{{ element.shipType }}</td>
+          <td>{{ element.flag }}</td>
+          <td>{{ element.homePort }}</td>
+          <td>{{ element.yearOfBuilt }}</td>
+          <td>{{ element.grossTonnage }}</td>
+          <td>{{ element.beam }}</td>
+          <td>{{ element.registeredOwner }}</td>
+          <td>{{ element.manager }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- table :: start -->
+    <pagination-controls
+      (pageChange)="page = $event"
+      style="float: right;"
+    ></pagination-controls>
+  </div>
+</div>

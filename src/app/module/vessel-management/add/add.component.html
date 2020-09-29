@@ -1,0 +1,521 @@
+<!--
+* Copyright 2020 Vyasaka Technologies
+-->
+
+<!-- Form :: start -->
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-bars"></i> <strong>Vessel Management</strong>
+    <span class="float-right">
+      <i
+        class="fa fa-arrow-circle-left"
+        [routerLink]="['/vessel-management']"
+        data-toggle="tooltip"
+        title="Back"
+        style="cursor: pointer;"
+      ></i>
+    </span>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="vesselManagementForm" class="form-horizontal">
+      <!-- Alert :: start -->
+      <alert *ngIf="alertMsg === true" type="success" dismissOnTimeout="3000" (onClosed)="alertMsg = true">
+        Saved.
+      </alert>
+      <alert *ngIf="alertMsg === false" type="warning" dismissOnTimeout="3000" (onClosed)="alertMsg = false">
+        Error found.
+      </alert>
+      <!-- Alert :: End -->
+
+      <!-- Grid :: start -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- IMO Number :: start -->
+            <div class="form-group row">
+              <div class=" dataTables_filter col-md-12">
+                <label for="name">IMO Number :</label>
+                <input
+                  class="form-control"
+                  id="docName"
+                  type="number"
+                  name="imoNumber"
+                  formControlName="imoNumber"
+                  placeholder="IMO Number"
+                  autocomplete="imoNumber"
+                  [ngClass]="{ 'is-invalid': submitted && f.imoNumber.errors }"
+                />
+                <div *ngIf="submitted && f.imoNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.imoNumber.errors.required">
+                    IMO Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- IMO Number :: end -->
+
+            <!-- Vessel Name :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Vessel Name :</label>
+                <input
+                  class="form-control"
+                  id="vesselName"
+                  name="vesselName"
+                  formControlName="vesselName"
+                  placeholder="Vessel Name"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.vesselName.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.vesselName.errors" class="invalid-feedback">
+                  <div *ngIf="f.vesselName.errors.required">
+                    Vessel Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Vessel Name :: End -->
+
+            <!-- Ship type :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Ship type :</label>
+                <select
+                  class="form-control"
+                  id="shipType"
+                  name="shipType"
+                  formControlName="shipType"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.shipType.errors
+                  }"
+                >
+                  <option value="">Please Select</option>
+                  <option *ngFor="let data of shipTypeData" [value]="data">{{ data }}</option>
+                </select>
+                <div *ngIf="submitted && f.shipType.errors" class="invalid-feedback">
+                  <div *ngIf="f.shipType.errors.required">
+                    Ship type is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Ship type :: start -->
+
+            <!-- Flag :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Flag :</label>
+                <input
+                  class="form-control"
+                  id="flag"
+                  name="flag"
+                  formControlName="flag"
+                  placeholder="Flag"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.flag.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.flag.errors" class="invalid-feedback">
+                  <div *ngIf="f.flag.errors.required">
+                    Flag is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Flag :: end -->
+
+            <!-- Home Port :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Home Port :</label>
+                <input
+                  class="form-control"
+                  id="homePort"
+                  name="homePort"
+                  formControlName="homePort"
+                  placeholder="Home Port"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.homePort.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.homePort.errors" class="invalid-feedback">
+                  <div *ngIf="f.homePort.errors.required">
+                    Home Port is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Home Port :: end -->
+
+            <!-- Gross Tonnage :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Gross Tonnage :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="grossTonnage"
+                  name="grossTonnage"
+                  formControlName="grossTonnage"
+                  placeholder="Gross Tonnage.."
+                  [ngClass]="{ 'is-invalid': submitted && f.grossTonnage.errors }"
+                />
+                <div *ngIf="submitted && f.grossTonnage.errors" class="invalid-feedback">
+                  <div *ngIf="f.grossTonnage.errors.required">
+                    Gross Tonnage is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Gross Tonnage :: end -->
+
+            <!-- Summer Dead Weight  :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Summer Dead Weight :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="summerDeadWeight"
+                  name="summerDeadWeight"
+                  formControlName="summerDeadWeight"
+                  placeholder="Summer Dead Weight.."
+                  [ngClass]="{ 'is-invalid': submitted && f.summerDeadWeight.errors }"
+                />
+                <div *ngIf="submitted && f.summerDeadWeight.errors" class="invalid-feedback">
+                  <div *ngIf="f.summerDeadWeight.errors.required">
+                    Summer Dead Weight is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Summer Dead Weight :: end -->
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- length Overall :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Length Overall :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="lengthOverall"
+                  name="lengthOverall"
+                  formControlName="lengthOverall"
+                  placeholder="Length Overall"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.lengthOverall.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.lengthOverall.errors" class="invalid-feedback">
+                  <div *ngIf="f.lengthOverall.errors.required">
+                    Length Overall is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Length Overall :: end -->
+
+            <!-- Beam :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Beam :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="beam"
+                  name="beam"
+                  formControlName="beam"
+                  placeholder="Beam"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.beam.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.beam.errors" class="invalid-feedback">
+                  <div *ngIf="f.beam.errors.required">
+                    Beam is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Beam :: end -->
+
+            <!-- Draught :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Draught :</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="draught"
+                  name="draught"
+                  formControlName="draught"
+                  placeholder="Draught"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.draught.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.draught.errors" class="invalid-feedback">
+                  <div *ngIf="f.draught.errors.required">
+                    Draught is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Draught :: end -->
+
+            <!-- year Of Built :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Year Of Built :</label>
+                <input
+                  class="form-control"
+                  id="yearOfBuilt"
+                  name="yearOfBuilt"
+                  bsDatepicker
+                  minMode="year"
+                  [bsConfig]="{ dateInputFormat: 'YYYY', adaptivePosition: true }"
+                  formControlName="yearOfBuilt"
+                  placeholder="datePicker"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.yearOfBuilt.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.yearOfBuilt.errors" class="invalid-feedback">
+                  <div *ngIf="f.yearOfBuilt.errors.required">
+                    Year Of Built is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- year Of Built :: end -->
+
+            <!-- builder :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Builder :</label>
+                <input
+                  class="form-control"
+                  id="builder"
+                  name="builder"
+                  formControlName="builder"
+                  placeholder="Builder"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.builder.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.builder.errors" class="invalid-feedback">
+                  <div *ngIf="f.builder.errors.required">
+                    Builder is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- builder :: end -->
+
+            <!-- Place Of Built :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Place Of Built :</label>
+                <input
+                  class="form-control"
+                  id="placeOfBuilt"
+                  name="placeOfBuilt"
+                  formControlName="placeOfBuilt"
+                  placeholder="Place Of Built"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.placeOfBuilt.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.placeOfBuilt.errors" class="invalid-feedback">
+                  <div *ngIf="f.placeOfBuilt.errors.required">
+                    place Of Built is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Place Of Built :: end -->
+            <!-- yard :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Yard :</label>
+                <input
+                  class="form-control"
+                  id="yard"
+                  name="yard"
+                  formControlName="yard"
+                  placeholder="Yard"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.yard.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.yard.errors" class="invalid-feedback">
+                  <div *ngIf="f.yard.errors.required">
+                    Yard is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- yard :: end -->
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- teu :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">TEU :</label>
+                <input
+                  class="form-control"
+                  id="teu"
+                  name="teu"
+                  formControlName="teu"
+                  placeholder="TEU"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.teu.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.teu.errors" class="invalid-feedback">
+                  <div *ngIf="f.teu.errors.required">
+                    TEU is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- teu :: end -->
+
+            <!-- crude :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Crude :</label>
+                <input
+                  class="form-control"
+                  id="crude"
+                  name="crude"
+                  formControlName="crude"
+                  placeholder="Crude"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.crude.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.crude.errors" class="invalid-feedback">
+                  <div *ngIf="f.crude.errors.required">
+                    Crude is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- crude :: end -->
+
+            <!-- grain :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Grain :</label>
+                <input
+                  class="form-control"
+                  id="grain"
+                  name="grain"
+                  formControlName="grain"
+                  placeholder="Grain"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.grain.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.grain.errors" class="invalid-feedback">
+                  <div *ngIf="f.grain.errors.required">
+                    Grain is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- grain :: end -->
+
+            <!-- bale :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Bale :</label>
+                <input
+                  class="form-control"
+                  id="bale"
+                  name="bale"
+                  formControlName="bale"
+                  placeholder="Bale"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.bale.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.bale.errors" class="invalid-feedback">
+                  <div *ngIf="f.bale.errors.required">
+                    Bale is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- bale :: end -->
+
+            <!-- registered Owner :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Registered Owner :</label>
+                <input
+                  class="form-control"
+                  id="registeredOwner"
+                  name="registeredOwner"
+                  formControlName="registeredOwner"
+                  placeholder="Registered Owner"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.registeredOwner.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.registeredOwner.errors" class="invalid-feedback">
+                  <div *ngIf="f.registeredOwner.errors.required">
+                    Registered Owner is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- registered Owner :: end -->
+
+            <!-- manager :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Manager :</label>
+                <input
+                  class="form-control"
+                  id="manager"
+                  name="manager"
+                  formControlName="manager"
+                  placeholder="Manager"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.manager.errors
+                  }"
+                />
+                <div *ngIf="submitted && f.manager.errors" class="invalid-feedback">
+                  <div *ngIf="f.manager.errors.required">
+                    Manager is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- manager :: end -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid :: start -->
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="float-right">
+      <button class="btn btn-sm btn-danger" type="reset" [routerLink]="['/document']">
+        Cancel
+      </button>
+      <button class="btn btn-sm btn-primary" type="submit" (click)="onFormSubmit(vesselManagementForm.value)">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Form :: End -->
