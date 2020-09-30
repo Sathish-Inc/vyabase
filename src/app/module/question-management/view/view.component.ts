@@ -2,20 +2,21 @@
  * Copyright (c) 2020 Vyasaka Technologies. All Rights Reserved.
  */
 
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
-import { FormArray } from '@angular/forms';
+import { Component } from "@angular/core";
+import { OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
+import { FormArray } from "@angular/forms";
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
+import { QuestionManagementService } from "../services/question-management.service";
 
-import { DataService } from '../data.service';
+// import { DataService } from "../data.service";
 
 @Component({
-  selector: 'app-view',
-  templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss']
+  selector: "app-view",
+  templateUrl: "./view.component.html",
+  styleUrls: ["./view.component.scss"],
 })
 export class ViewComponent implements OnInit {
   // component
@@ -27,77 +28,77 @@ export class ViewComponent implements OnInit {
   types: boolean | undefined = undefined;
   selectedValue: string | undefined = undefined;
 
-   constructor(
-     private route: ActivatedRoute,
-     private formBuilder: FormBuilder,
-     private dataService: DataService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private qmService: QuestionManagementService
+  ) {}
 
   ngOnInit() {
-    if (this.route.snapshot.queryParamMap.get('viewId')) {
-      const viewId = this.route.snapshot.queryParamMap.get('viewId');
+    if (this.route.snapshot.queryParamMap.get("viewId")) {
+      const viewId = this.route.snapshot.queryParamMap.get("viewId");
       this.getEventDetailsById(viewId);
     }
 
     this.questionManagementForm = this.formBuilder.group({
-      id: [''],
-      shortName: [''],
-      groupName: [''],
-      groupId: [''],
-      suggestionMark: [''],
-      timeAllocated: [''],
-      level: [''],
-      type: [''],
-      description: [''],
-      totalOptions: [''],
-      answer: [''],
-      options: this.formBuilder.array([])
+      id: [""],
+      shortName: [""],
+      groupName: [""],
+      groupId: [""],
+      suggestionMark: [""],
+      timeAllocated: [""],
+      level: [""],
+      type: [""],
+      description: [""],
+      totalOptions: [""],
+      answer: [""],
+      options: this.formBuilder.array([]),
     });
   }
 
   createOptions(): FormGroup {
     return this.formBuilder.group({
-     option: ''
+      option: "",
     });
+  }
 
-    }
-
-   getControl() {
+  getControl() {
     return (this.questionManagementForm.controls.options as FormArray).controls;
   }
 
   addOptions() {
-   this.options = this.questionManagementForm.controls.options as FormArray;
-   this.options.push(this.createOptions());
+    this.options = this.questionManagementForm.controls.options as FormArray;
+    this.options.push(this.createOptions());
   }
 
   getEventDetailsById(_id: any) {
-    this.dataService.get(_id).subscribe((data: any) => {
+    this.qmService.getById(_id).subscribe((data: any) => {
       this.updateEditView(data);
     });
   }
 
   updateEditView(view: any) {
-    this.optionsData =  view.options;
+    this.optionsData = view.options;
     this.questionManagementForm.patchValue({
       id: view.id,
       shortName: view.shortName,
       groupName: view.groupName,
       groupId: view.groupId,
       suggestionMark: view.suggestionMark,
-      timeAllocated: view.timeAllocated ,
+      timeAllocated: view.timeAllocated,
       level: view.level,
       type: view.type,
       description: view.description,
-      totalOptions: view.totalOptions ,
+      totalOptions: view.totalOptions,
       answer: view.answer,
-      options: view.options
+      options: view.options,
     });
     this.patchResult();
     this.checkType(view.type);
   }
 
   checkType(data: any) {
-    if (data === 'Multiple Choice') {
+    if (data === "Multiple Choice") {
       this.types = true;
     } else {
       this.types = false;
@@ -105,12 +106,12 @@ export class ViewComponent implements OnInit {
   }
 
   patchResult() {
-    const control = this.questionManagementForm.get('options') as FormArray;
+    const control = this.questionManagementForm.get("options") as FormArray;
 
     this.optionsData.forEach((value: any) => {
       control.push(
         this.formBuilder.group({
-          option: value.option
+          option: value.option,
         })
       );
     });

@@ -2,85 +2,90 @@
  * Copyright (c) 2020 Vyasaka Technologies. All Rights Reserved.
  */
 
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataService } from '../data.service';
-import { QuestionManagement } from '../question-management.model';
+import { Component } from "@angular/core";
+import { OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+// import { DataService } from "../data.service";
+import { QuestionManagement } from "../question-management.model";
 
-import { ConfirmationModalService } from '../../lib/components/confirmation/confirmation-modal-service';
-import { HttpClient } from "@angular/common/http";
+import { ConfirmationModalService } from "../../../lib/components/confirmation/confirmation-modal-service";
+import { QuestionManagementService } from "../services/question-management.service";
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: "app-list",
+  templateUrl: "./list.component.html",
+  styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-
   // search & filter
- searchString: string = '';
- displayView: string = 'table';
- groupName: string | undefined = undefined;
- levelFilter: string | undefined  = undefined;
- typeFilter: string | undefined = undefined;
+  searchString: string = "";
+  displayView: string = "table";
+  groupName: string | undefined = undefined;
+  levelFilter: string | undefined = undefined;
+  typeFilter: string | undefined = undefined;
 
   // component
   questionManagementData: QuestionManagement[] = [];
-  optionsList: string = '';
-  questionsCount: string = '';
-  simpleQuestions: string = '';
-  fillInQuestions: string = '';
-  multipleQuestions: string = '';
+  optionsList: string = "";
+  questionsCount: string = "";
+  simpleQuestions: string = "";
+  fillInQuestions: string = "";
+  multipleQuestions: string = "";
 
-  levelList: string[] = ['Simple', 'Medium', 'Complex'];
-  typeList: string[] = ['Fill in the Blank', 'Match the Following', 'Multiple Choice', 'True or False'];
+  levelList: string[] = ["Simple", "Medium", "Complex"];
+  typeList: string[] = [
+    "Fill in the Blank",
+    "Match the Following",
+    "Multiple Choice",
+    "True or False",
+  ];
 
-   // pagination
+  // pagination
   page: number = 1;
 
-   // checkbox
-   isChecked: boolean = false;
-   checkedIdList: any[] = [];
-   id: string = '';
+  // checkbox
+  isChecked: boolean = false;
+  checkedIdList: any[] = [];
+  id: string = "";
 
-    // filter
+  // filter
   isCollapsed: boolean = true;
   filterStatus: boolean = false;
   actualList: boolean = true;
 
   constructor(
-    private dataService: DataService,
+    private qmService: QuestionManagementService,
     private router: Router,
-    private modelService: ConfirmationModalService) {}
+    private modelService: ConfirmationModalService
+  ) {}
 
   ngOnInit() {
     this.getAllDetails();
   }
 
   getAllDetails() {
-    this.dataService.getAll().subscribe((response: any) => {
+    this.qmService.getAll().subscribe((response: any) => {
       this.questionManagementData = response;
       this.questionsCount = response.length;
-      const level =  response.filter((value: any) => {
-         return value.level === 'Simple';
-         });
+      const level = response.filter((value: any) => {
+        return value.level === "Simple";
+      });
       this.simpleQuestions = level.length;
-      const data =  response.filter((value: any) => {
-           return value.type === 'Fill in the Blank';
-          });
+      const data = response.filter((value: any) => {
+        return value.type === "Fill in the Blank";
+      });
       this.fillInQuestions = data.length;
 
-      const result =  response.filter((value: any) => {
-           return value.type === 'Multiple Choice';
-           });
+      const result = response.filter((value: any) => {
+        return value.type === "Multiple Choice";
+      });
 
       this.multipleQuestions = result.length;
 
       this.optionsList = response.map((value: any) => {
-            return  value.options;
-          });
+        return value.options;
       });
+    });
   }
 
   getSelectedId(isChecked: boolean, id: string) {
@@ -104,17 +109,22 @@ export class ListComponent implements OnInit {
   }
 
   onEdit(_id: string) {
-    this.router.navigate(['/question-management/edit'], { queryParams: { editId: _id } });
+    this.router.navigate(["/question-management/edit"], {
+      queryParams: { editId: _id },
+    });
   }
 
   onDelete(_id: string) {
     const modal = this.modelService.createConfirmationModal();
-    modal.content.showConfirmationModal('Delete confirmation', 'Are you sure want to delete ' + name + '?');
+    modal.content.showConfirmationModal(
+      "Delete confirmation",
+      "Are you sure want to delete " + name + "?"
+    );
 
     modal.content.onClose.subscribe((result: boolean) => {
       if (result === true) {
         // when pressed Yes
-        this.dataService.delete(_id).subscribe(() => {
+        this.qmService.deleteById(_id).subscribe(() => {
           this.getAllDetails();
         });
       } else if (result === false) {
@@ -126,7 +136,9 @@ export class ListComponent implements OnInit {
   }
 
   onView(_id: string) {
-    this.router.navigate(['/question-management/view'], { queryParams: { viewId: _id } });
+    this.router.navigate(["/question-management/view"], {
+      queryParams: { viewId: _id },
+    });
   }
 
   onRefresh() {

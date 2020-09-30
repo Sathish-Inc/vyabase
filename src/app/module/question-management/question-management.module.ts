@@ -11,7 +11,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { VyaPipeModule } from '../lib/pipes/vya.pipe.module';
+import { VyaPipeModule } from '../../lib/pipes/vya.pipe.module';
 import { QuestionManagementRouting } from './question-management.routing';
 
 import { AddComponent } from './add/add.component';
@@ -22,8 +22,6 @@ import { UploadComponent } from './upload/upload.component';
 import { ViewComponent } from './view/view.component';
 
 import { DataService } from './data.service';
-// import { DbService } from '../services/db.service';
-
 
 @NgModule({
   declarations: [ListComponent, AddComponent, UploadComponent, HistoryComponent, EditComponent, ViewComponent ],
@@ -36,7 +34,7 @@ import { DataService } from './data.service';
      AlertModule.forRoot(),
      CollapseModule.forRoot(),
      QuestionManagementRouting,
-      VyaPipeModule,
+     VyaPipeModule,
      TabsModule.forRoot()
     ],
   providers: [DataService]

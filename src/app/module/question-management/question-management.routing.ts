@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: 'upload',
     component: UploadComponent
- },
+  },
   {
     path: 'history',
     component: HistoryComponent

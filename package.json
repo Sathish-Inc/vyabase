@@ -45,6 +45,7 @@
     "ag-grid-angular": "^23.1.0",
     "ag-grid-community": "^23.1.0",
     "ag-grid-enterprise": "^23.1.0",
+    "angular5-csv": "^0.2.11",
     "chart.js": "^2.9.2",
     "core-js": "^2.6.11",
     "cross-domain-storage": "^1.0.8",
