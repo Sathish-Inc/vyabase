@@ -65,26 +65,27 @@ export class ListComponent implements OnInit {
 
   getAllDetails() {
     this.qmService.getAll().subscribe((response: any) => {
+      // const res = Array.of(response)
       this.questionManagementData = response;
-      this.questionsCount = response.length;
-      const level = response.filter((value: any) => {
-        return value.level === "Simple";
-      });
-      this.simpleQuestions = level.length;
-      const data = response.filter((value: any) => {
-        return value.type === "Fill in the Blank";
-      });
-      this.fillInQuestions = data.length;
+      // this.questionsCount = response.length;
+      // const level = response.filter((value: any) => {
+      //   return value.level === "Simple";
+      // });
+      // this.simpleQuestions = level.length;
+      // const data = response.filter((value: any) => {
+      //   return value.type === "Fill in the Blank";
+      // });
+      // this.fillInQuestions = data.length;
 
-      const result = response.filter((value: any) => {
-        return value.type === "Multiple Choice";
-      });
+      // const result = response.filter((value: any) => {
+      //   return value.type === "Multiple Choice";
+      // });
 
-      this.multipleQuestions = result.length;
+      // this.multipleQuestions = result.length;
 
-      this.optionsList = response.map((value: any) => {
-        return value.options;
-      });
+      // this.optionsList = response.map((value: any) => {
+      //   return value.options;
+      // });
     });
   }
 
