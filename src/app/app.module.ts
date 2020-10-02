@@ -65,6 +65,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     HttpClientModule,
     ModalModule.forRoot(),
   ],
+  entryComponents: [
+    ConfirmationModalComponent, 
+    ProcedureModalComponent
+  ],
   declarations: [
     ConfirmationModalComponent,
     ProcedureModalComponent,

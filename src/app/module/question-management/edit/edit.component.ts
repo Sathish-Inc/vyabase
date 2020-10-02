@@ -101,8 +101,8 @@ export class EditComponent implements OnInit {
 
   getEditDetailsById(_id: any) {
     this.qmService.getById(_id).subscribe((data: any) => {
-      this.questionManagement = data;
-      this.updateEditView(data);
+      this.questionManagement = data.doc.docs[0];
+      this.updateEditView(this.questionManagement);
     });
   }
 

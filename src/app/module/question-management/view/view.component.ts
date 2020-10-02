@@ -73,7 +73,8 @@ export class ViewComponent implements OnInit {
 
   getEventDetailsById(_id: any) {
     this.qmService.getById(_id).subscribe((data: any) => {
-      this.updateEditView(data);
+      const viewData = data.doc.docs[0];
+      this.updateEditView(viewData);
     });
   }
 

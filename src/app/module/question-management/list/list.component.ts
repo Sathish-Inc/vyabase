@@ -66,7 +66,7 @@ export class ListComponent implements OnInit {
   getAllDetails() {
     this.qmService.getAll().subscribe((response: any) => {
       // const res = Array.of(response)
-      this.questionManagementData = response;
+      this.questionManagementData = response.response.rows.map((val:any)=>val.doc);
       // this.questionsCount = response.length;
       // const level = response.filter((value: any) => {
       //   return value.level === "Simple";
