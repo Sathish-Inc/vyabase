@@ -40,7 +40,6 @@ export class AddComponent implements OnInit {
 
   // id generation
   idPrefix: string = "";
-  autoId: string = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,12 +49,6 @@ export class AddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.qmService.getAll().subscribe((response: any) => {
-      const idLength = response.length + 1;
-      this.autoId = this.idPrefix + "" + idLength;
-      this.setPatchvalue(this.autoId);
-    });
-
     this.questionManagementForm = this.formBuilder.group({
       id: [""],
       shortName: ["", Validators.required],
@@ -117,11 +110,13 @@ export class AddComponent implements OnInit {
 
     this.alertMsg = true;
     const questionManagement: QuestionManagement = QuestionManagementObjectBuilder.create(
-      data,
-      this.autoId
+      data
     );
-    this.qmService.add(questionManagement).subscribe(() => {});
-    this.router.navigateByUrl("/question-management");
+    this.qmService.add(questionManagement).subscribe((resp: any) => {
+      if (resp) {
+        this.router.navigateByUrl("/question-management");
+      }
+    });
   }
 
   onCancel() {

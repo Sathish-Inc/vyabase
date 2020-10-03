@@ -3,21 +3,16 @@
  */
 
 import moment from "moment";
-import * as UUID from "uuid";
+// import * as UUID from "uuid";
 
-import { QuestionManagementConstant } from "./question-management-constant";
+// import { QuestionManagementConstant } from "./question-management-constant";
 import { QuestionManagement } from "./question-management.model";
 
 export class QuestionManagementObjectBuilder {
   constructor() {}
-  public static create(data: any, id: any): QuestionManagement {
-    const referenceId = UUID.v4();
+  public static create(data: any): QuestionManagement {
     const questionManagement: QuestionManagement = new QuestionManagement();
 
-    questionManagement._id = referenceId;
-    questionManagement.docType = QuestionManagementConstant.DOC_TYPE;
-    questionManagement.docId = referenceId;
-    questionManagement.id = id;
     questionManagement.shortName = data.shortName;
     questionManagement.groupName = data.groupName;
     questionManagement.groupId = data.groupId;
@@ -37,10 +32,6 @@ export class QuestionManagementObjectBuilder {
 
   public static upload(data: any): QuestionManagement {
     const questionManagement: QuestionManagement = new QuestionManagement();
-    const referenceId = UUID.v4();
-    questionManagement._id = referenceId;
-    questionManagement.docType = QuestionManagementConstant.DOC_TYPE;
-    questionManagement.docId = referenceId;
     questionManagement.id = data["Id"];
     questionManagement.shortName = data["Short Name"];
     questionManagement.groupName = data["Group Name"];
