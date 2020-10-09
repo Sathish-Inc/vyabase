@@ -193,10 +193,10 @@ export class MasterMenuComponent implements OnInit {
   }
 
   onSaveDefaultData(data: any) {
-    // const masterMenu: any = MasterMenuObjectBuilder.createDefaultData(data);
-    // this.dataService.appendField(masterMenu).subscribe(() => {
-    //   this.getAllMasterMenuDetails();
-    // });
+    const masterMenu: any = MasterMenuObjectBuilder.createDefaultData(data);
+    this.dataService.appendField(masterMenu).subscribe(() => {
+      this.getAllMasterMenuDetails();
+    });
   }
 
   onUpdate() {
