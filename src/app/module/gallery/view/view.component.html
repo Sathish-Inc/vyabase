@@ -1,0 +1,133 @@
+<!--
+* Copyright 2020 Vyasaka Technologies
+-->
+
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-bars"></i><strong>Gallery</strong>
+    <span class="float-right">
+      <i
+        class="fa fa-arrow-circle-left"
+        aria-hidden="true"
+        [routerLink]="['/gallery']"
+        data-toggle="tooltip"
+        title="Back"
+        style="cursor: pointer;"
+      ></i>
+    </span>
+  </div>
+  <div class="card-body">
+    <!-- Grid :: start -->
+    <form [formGroup]="galleryForm" class="form-horizontal">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- Order  :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Order :</label>
+                <!-- [ngClass]="{ 'is-invalid': submitted && f.order.errors }" -->
+                <input
+                  class="form-control"
+                  id="order"
+                  name="order"
+                  formControlName="order"
+                  autocomplete="order"
+                  readonly
+                />
+              </div>
+            </div>
+            <!-- Order  :: End -->
+
+            <!-- Title :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Title</label>
+                <input
+                  class="form-control"
+                  id="title"
+                  type="text"
+                  name="title"
+                  formControlName="title"
+                  placeholder="Enter Title.."
+                  autocomplete="title"
+                  readonly
+                />
+              </div>
+            </div>
+            <!-- Title :: end -->
+
+            <!-- Gallery location :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Gallery Location</label>
+                <input
+                  class="form-control"
+                  id="galleryLocation"
+                  type="text"
+                  name="galleryLocation"
+                  formControlName="galleryLocation"
+                  placeholder="Enter Gallery location.."
+                  autocomplete="galleryLocation"
+                  readonly
+                />
+              </div>
+            </div>
+            <!-- Gallery location :: end -->
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- Group :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Gallery group</label>
+                <input
+                  class="form-control"
+                  id="galleryGroup"
+                  name="galleryGroup"
+                  formControlName="galleryGroup"
+                  readonly
+                />
+              </div>
+            </div>
+            <!-- Group :: start -->
+
+            <!-- Description :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Description</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  formControlName="description"
+                  placeholder="Description.."
+                  readonly
+                ></textarea>
+              </div>
+            </div>
+            <!-- Description :: end -->
+
+            <!-- Gallery Status :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="publishStatus">Publish:</label>
+                <input
+                  class="form-control"
+                  id="publishStatus"
+                  name="publishStatus"
+                  id="publishStatus"
+                  formControlName="publish"
+                  readonly
+                />
+              </div>
+            </div>
+            <!-- Gallery Status :: end -->
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- Grid :: start -->
+  </div>
+</div>
+<!-- Form :: start -->

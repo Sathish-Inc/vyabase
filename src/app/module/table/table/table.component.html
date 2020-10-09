@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-bars"></i><strong>Datas</strong>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover table-responsive-sm table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let data of datas">
+        <tr>
+          <td>{{data.firstName}}</td>
+          <td>{{data.lastName}}</td>
+          <td>{{data.handle}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

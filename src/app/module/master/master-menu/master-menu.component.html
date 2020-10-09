@@ -1,0 +1,158 @@
+<!--
+* Copyright 2020 Vyasaka Technologies. All Rights Reserved.
+-->
+
+<form [formGroup]="masterMenuForm">
+  <div class="card">
+    <div class="card-header">
+      <strong>{{ title }}</strong>
+      <span class="float-right">
+        <i
+          class="fa fa-refresh"
+          aria-hidden="true"
+          (click)="refreshPage()"
+          data-toggle="tooltip"
+          title="Refresh"
+        ></i>
+        <i
+          class="fa fa-arrow-circle-left"
+          [routerLink]="['/master']"
+          data-toggle="tooltip"
+          title="Back"
+          style="cursor: pointer;"
+        ></i>
+      </span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="card">
+            <div class="card-header">
+              Root
+              <span class="float-right">
+                <i
+                  class="fa fa-plus-circle"
+                  (click)="displayView = 'add'"
+                  data-toggle="tooltip"
+                  title="Add"
+                  style="cursor: pointer;"
+                ></i>
+              </span>
+            </div>
+            <div class="card-body">
+              <table class="table table-responsive-sm table-striped">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Action</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let element of masterData">
+                    <td>
+                      <b>{{ element.name }}</b
+                      ><br />
+                      <span>{{ element.description }}</span>
+                    </td>
+                    <td>
+                      <!-- <span class="badge badge-success">{{ element.code }}</span> -->
+                      <i
+                        class="fa fa-edit"
+                        (click)="displayView = 'edit'"
+                        (click)="updateEditView(element.code)"
+                        data-toggle="tooltip"
+                        title="Edit"
+                        style="cursor: pointer;"
+                      ></i>
+                      <i
+                        class="fa fa-trash"
+                        (click)="onDelete(element.code)"
+                        data-toggle="tooltip"
+                        title="Edit"
+                        style="cursor: pointer;"
+                      ></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div *ngIf="displayView === 'add' || displayView === 'edit'">
+                <div class="row">
+                  <!-- Title : start -->
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input
+                        *ngIf="displayView === 'add'"
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        formControlName="name"
+                        placeholder="Name"
+                        required
+                      />
+                      <input
+                        *ngIf="displayView === 'edit'"
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        formControlName="name"
+                        placeholder="Name"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <!-- Title :: end -->
+
+                  <!-- Description :: start -->
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="description"
+                        formControlName="description"
+                        placeholder="Description"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <!-- Description :: end -->
+
+                  <div class="card-footer col-md-12">
+                    <button
+                      type="submit"
+                      *ngIf="displayView === 'add'"
+                      class="btn btn-sm btn-primary float-right"
+                      type="submit"
+                      [disabled]="!masterMenuForm.valid"
+                      (click)="onFormSubmit(masterMenuForm.value)"
+                    >
+                      Save
+                    </button>
+                    <button
+                      *ngIf="displayView === 'edit'"
+                      type="submit"
+                      class="btn btn-sm btn-primary float-right"
+                      type="submit"
+                      (click)="edit(masterMenuForm.value)"
+                    >
+                      Update
+                    </button>
+                    <button
+                      type="reset"
+                      class="btn btn-sm btn-danger float-right"
+                      [routerLink]="['/master']"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/.col-->
+      </div>
+    </div>
+  </div>
+</form>

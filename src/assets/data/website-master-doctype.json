@@ -1,0 +1,14 @@
+[
+  {
+    "docType": "INEVITO::EVITO::COMPANY::GALLERY::MASTER",
+    "title": "Gallery Master",
+    "description": "Manage Gallery",
+    "id": "INEVITO-EVITO-COMPANY-GALLERY-MASTER::76839d2802711ecf2a0d9cbda9000d21"
+  },
+  {
+    "docType": "INEVITO::EVITO::COMPANY::EVENT::MASTER",
+    "title": "Event Master",
+    "description": "Manage Event",
+    "id": "INEVITO-EVITO-COMPANY-EVENT-MASTER::76839d2802711ecf2a0d9cbda9002b4a"
+  }
+]

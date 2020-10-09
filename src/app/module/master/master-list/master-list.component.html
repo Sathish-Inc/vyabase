@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-align-justify"></i><strong>Master List</strong>
+    <span class="float-right">
+      <i
+        class="fa fa-arrow-circle-left"
+        [routerLink]="['/master']"
+        data-toggle="tooltip"
+        title="Back"
+        style="cursor: pointer;"
+      ></i>
+    </span>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-12 col-md-4" *ngFor="let data of projectData">
+        <div class="card">
+          <div
+            class="card-header"
+            (click)="masterNavigation(data.id)"
+            style="cursor: pointer;"
+          >
+            <strong>{{ data.title }}</strong>
+            <span
+              *ngIf="data.length > 0"
+              class="badge badge-success float-right"
+              >{{ data.length }}</span
+            >
+            <span
+              *ngIf="data.length === 0 || data.length === 'undefined'"
+              class="badge badge-danger float-right"
+              >{{ data.length }}</span
+            >
+          </div>
+          <div class="card-body">
+            <small>{{ data.description }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+[
+  {
+    "docType": "INEVITO::EVITO::COMPANY::WEBSITE::MASTER",
+    "masterMenuData": [
+      {
+        "application": "Gallery Master",
+        "name": "Annual Day",
+        "description": "Annual Day",
+        "parent": "",
+        "code": "CODE-1"
+      },
+      {
+        "application": "Gallery Master",
+        "name": "Sports Day",
+        "description": "Sports Day",
+        "parent": "",
+        "code": "CODE-2"
+      },
+      {
+        "application": "Event Master",
+        "name": "PTM",
+        "description": "PTM",
+        "parent": "",
+        "code": "CODE-3"
+      },
+      {
+        "application": "Event Master",
+        "name": "Exam",
+        "description": "Exam",
+        "parent": "",
+        "code": "CODE-4"
+      }
+    ]
+  }
+]

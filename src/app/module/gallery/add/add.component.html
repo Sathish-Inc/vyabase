@@ -1,0 +1,236 @@
+<!--
+* Copyright 2020 Vyasaka Technologies
+-->
+
+<!-- Form :: start -->
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-bars"></i><strong>Gallery Form</strong>
+    <span class="float-right">
+      <i
+        class="fa fa-arrow-circle-left"
+        aria-hidden="true"
+        [routerLink]="['/gallery']"
+        data-toggle="tooltip"
+        title="Back"
+        style="cursor: pointer;"
+      ></i>
+    </span>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="galleryForm" class="form-horizontal">
+      <!-- Alert :: start -->
+      <alert
+        *ngIf="alertMsg === true"
+        type="success"
+        dismissOnTimeout="3000"
+        (onClosed)="alertMsg = true"
+      >
+        Saved.
+      </alert>
+      <alert
+        *ngIf="alertMsg === false"
+        type="warning"
+        dismissOnTimeout="3000"
+        (onClosed)="alertMsg = false"
+      >
+        Error found.
+      </alert>
+      <!-- Alert :: End -->
+
+      <!-- Grid :: start -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- Order  :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Order :</label>
+                <!-- [ngClass]="{ 'is-invalid': submitted && f.order.errors }" -->
+                <select
+                  class="form-control"
+                  id="order"
+                  name="order"
+                  formControlName="order"
+                >
+                  <option>Please select</option>
+                  <option *ngFor="let range of orderRange">{{ range }}</option>
+                </select>
+              </div>
+            </div>
+            <!-- Order  :: End -->
+
+            <!-- Title :: start -->
+            <div class="form-group row">
+              <div class=" dataTables_filter col-md-12">
+                <label for="name">Title :<span class="reqField">*</span></label>
+                <input
+                  class="form-control"
+                  id="title"
+                  type="text"
+                  name="title"
+                  formControlName="title"
+                  placeholder="Enter Title.."
+                  autocomplete="title"
+                  [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
+                />
+                <div
+                  *ngIf="submitted && f.title.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.title.errors.required">Title is required</div>
+                </div>
+              </div>
+            </div>
+            <!-- Title :: end -->
+
+            <!-- Gallery location :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name"
+                  >Gallery Location :<span class="reqField">*</span></label
+                >
+                <input
+                  class="form-control"
+                  id="galleryLocation"
+                  type="text"
+                  name="galleryLocation"
+                  formControlName="galleryLocation"
+                  placeholder="Enter Gallery location.."
+                  autocomplete="galleryLocation"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.galleryLocation.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.galleryLocation.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.galleryLocation.errors.required">
+                    Gallery Location is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Gallery location :: end -->
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- Group :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name"
+                  >Gallery group :<span class="reqField">*</span></label
+                >
+                <select
+                  class="form-control"
+                  id="galleryGroup"
+                  name="galleryGroup"
+                  formControlName="galleryGroup"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.galleryGroup.errors
+                  }"
+                >
+                  <option value="">Please Select</option>
+                  <option *ngFor="let group of masterData">{{
+                    group.name
+                  }}</option>
+                </select>
+                <div
+                  *ngIf="submitted && f.galleryGroup.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.galleryGroup.errors.required">
+                    Gallery group is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Group :: start -->
+
+            <!-- Description :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name"
+                  >Description :<span class="reqField">*</span></label
+                >
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  formControlName="description"
+                  placeholder="Description.."
+                  [ngClass]="{
+                    'is-invalid': submitted && f.description.errors
+                  }"
+                ></textarea>
+                <div
+                  *ngIf="submitted && f.description.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.description.errors.required">
+                    Description is required
+                  </div>
+                  <div *ngIf="f.description.errors.maxlength">
+                    Description must be 180 characters
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Description :: end -->
+
+            <!-- Gallery Status :: start -->
+            <div class="col-md-12">
+              <label for="publishStatus">Publish :</label>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="publish"
+                  id="publish"
+                  value="Yes"
+                  formControlName="publish"
+                />
+                <label class="form-check-label" for="publish">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="publish"
+                  id="publish"
+                  value="No"
+                  formControlName="publish"
+                />
+                <label class="form-check-label" for="publish">No</label>
+              </div>
+            </div>
+            <!-- Gallery Status :: end -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid :: start -->
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="float-right">
+      <button
+        class="btn btn-sm btn-danger"
+        type="reset"
+        [routerLink]="['/gallery']"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn btn-sm btn-primary"
+        type="submit"
+        (click)="onFormSubmit(galleryForm.value)"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Form :: start -->

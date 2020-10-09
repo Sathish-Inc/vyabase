@@ -26,6 +26,34 @@ export const routes: Routes = [
             "./module/question-management/question-management.module"
           ).then((m) => m.QuestionManagementModule),
       },
+      {
+        path: "master",
+        loadChildren: () =>
+          import(
+            "./module/master/master.module"
+          ).then((m) => m.MasterModule),
+      },
+      {
+        path: "gallery",
+        loadChildren: () =>
+          import(
+            "./module/gallery/gallery.module"
+          ).then((m) => m.GalleryModule),
+      },
+      {
+        path: "dataEntry",
+        loadChildren: () =>
+          import(
+            "./module/data-entry/data-entry.module"
+          ).then((m) => m.DataEntryModule),
+      },
+      {
+        path: "table",
+        loadChildren: () =>
+          import(
+            "./module/table/table.module"
+          ).then((m) => m.TableModule),
+      }
     ],
   },
 ];
