@@ -76,7 +76,6 @@ export class EditComponent implements OnInit {
       status: data.status,
       lossReason: data.lossReason,
       priority: data.priority,
-      yearOfBuilt: data.yearOfBuilt,
       source: data.source,
       description: data.description
     });
