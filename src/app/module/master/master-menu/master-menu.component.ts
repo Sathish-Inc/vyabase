@@ -6,7 +6,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { FormBuilder, FormGroup } from "@angular/forms";
 // import { mapJsonToObject } from "../../../utils/json2object";
-import { DataService } from "../data.service";
+// import { DataService } from "../data.service";
 
 import { ActivatedRoute } from "@angular/router";
 import { MasterMenuObjectBuilder } from "../master-menu-object-builder";
@@ -36,7 +36,7 @@ export class MasterMenuComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private masterService: MasterService,
-    private dataService: DataService,
+    // private dataService: DataService,
     private modelService: ConfirmationModalService,
     private JsonReaderService:JsonReaderService
   ) {}
@@ -193,10 +193,11 @@ export class MasterMenuComponent implements OnInit {
   }
 
   onSaveDefaultData(data: any) {
-    const masterMenu: any = MasterMenuObjectBuilder.createDefaultData(data);
-    this.dataService.appendField(masterMenu).subscribe(() => {
-      this.getAllMasterMenuDetails();
-    });
+    console.log(data);
+    // const masterMenu: any = MasterMenuObjectBuilder.createDefaultData(data);
+    // this.dataService.appendField(masterMenu).subscribe(() => {
+    //   this.getAllMasterMenuDetails();
+    // });
   }
 
   onUpdate() {

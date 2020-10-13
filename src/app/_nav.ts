@@ -11,24 +11,29 @@ export const navItems: INavData[] = [
     url: "/question-management",
     icon: "icon-pencil",
   },
-  {
-    name: "Master",
-    url: "/master",
-    icon: "icon-pencil",
-  },
-  {
-    name: "Gallery",
-    url: "/gallery",
-    icon: "icon-pencil",
-  },
   // {
-  //   name: "DataEntry",
-  //   url: "/dataEntry",
+  //   name: "Master",
+  //   url: "/master",
+  //   icon: "icon-pencil",
+  // },
+  // {
+  //   name: "Gallery",
+  //   url: "/gallery",
   //   icon: "icon-pencil",
   // },
   {
+    name: "DataEntry",
+    url: "/dataEntry",
+    icon: "icon-pencil",
+  },
+  {
     name: "Table",
     url: "/table",
+    icon: "icon-pencil",
+  },
+  {
+    name: "Tree",
+    url:"/tree",
     icon: "icon-pencil",
   }
 ];

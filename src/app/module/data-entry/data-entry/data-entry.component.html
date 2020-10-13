@@ -18,10 +18,10 @@
             <!-- Alert :: End -->
             <div class="form-row">
                <!-- Id  :: start -->
-              <div class="form-group col-sm-12 col-md-4">
+              <!-- <div class="form-group col-sm-12 col-md-4">
                 <label for="id">Id :</label>
                 <input class="form-control"  formControlName="id" readonly/>        
-              </div>
+              </div> -->
                <!-- Id  :: End -->
 
                <!-- Tag  :: start -->
@@ -44,7 +44,7 @@
               <div class="form-group col-sm-12 col-md-4">
                 <label>Name :</label>
                 <input
-                  placeholder="Group"
+                  placeholder="Name"
                   class="form-control"
                   formControlName="name"
                   [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
@@ -89,7 +89,7 @@
               <!-- Close Date  :: start -->
               <div class="form-group col-sm-12 col-md-4">
                 <label>Close Date :</label>
-                <input  class="form-control" formControlName="closeDate" placeholder="Close Datey" [ngClass]="{ 'is-invalid': submitted && f.closeDate.errors }" />
+                <input  class="form-control" formControlName="closeDate" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD' }" placeholder="Close Date" [ngClass]="{ 'is-invalid': submitted && f.closeDate.errors }" />
                 <div *ngIf="submitted && f.closeDate.errors" class="invalid-feedback">
                   <div *ngIf="f.closeDate.errors.required">Close Date  is required</div>
                 </div>
@@ -133,11 +133,10 @@
               <!-- Priority  :: start -->
               <div class="form-group col-sm-12 col-md-4">
                 <label>Priority :</label>
-                <input
-                  placeholder="Priority"
-                  class="form-control"
-                  formControlName="priority"
-                  [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+                <select  class="form-control" formControlName="priority"  [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
+                  <option value="">Please Select</option>
+                  <option *ngFor="let priority of Priority">{{ priority }}</option>
+                </select>
                 <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
                   <div *ngIf="f.priority.errors.required">Priority is required</div>
                 </div>               
@@ -160,7 +159,7 @@
               <!-- Description  :: start -->
               <div class="form-group col-sm-12 col-md-6">
                 <label>Description :</label>
-                <input  class="form-control" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"/>
+                <textarea  class="form-control" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
                 <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
                   <div *ngIf="f.description.errors.required">Description is required</div>
                 </div>
@@ -172,7 +171,7 @@
         <!-- Footer   :: Start -->  
         <div class="card-footer">
           <div class="pull-right">
-            <button class="btn btn-sm btn-danger" type="reset" (click)="onCancel"> Cancel</button>
+            <button class="btn btn-sm btn-danger" type="reset" (click)="onCancel()"> Cancel</button>
             <button class="btn btn-sm btn-primary" (click)="onSubmit(dataEntryForm.value)">Save</button>
           </div>
         </div>

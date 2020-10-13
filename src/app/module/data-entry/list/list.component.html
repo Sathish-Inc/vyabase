@@ -1,0 +1,112 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-bars"></i><strong>Datas</strong>
+    <span class="float-right">
+      <i
+        class="fa fa-refresh"
+        style="cursor: pointer;"
+        aria-hidden="true"
+        (click)="refreshPage()"
+        data-toggle="tooltip"
+        title="Refresh"
+      ></i>
+      <i
+        class="fa fa-plus"
+        [routerLink]="['/dataEntry/add']"
+        aria-hidden="true"
+        data-toggle="tooltip"
+        title="Add"
+        style="cursor: pointer;"
+      ></i>
+    </span>
+  </div>
+  <div class="card-body">
+    <div class="row">
+    <!-- table :: start -->
+    <table class="table table-responsive-sm table-bordered">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Tag</th>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Stage</th>
+          <th>Value</th>
+          <th>Close Date</th>
+          <th>Win</th>
+          <th>Status</th>
+          <th>Loss Reason</th>
+          <th>Priority</th>
+          <th>Source</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let data of datas">
+          <td>
+            <label class="switch switch-label switch-pill switch-primary">
+              <input
+                type="checkbox"
+                class="switch-input"
+                [ngModel]="isChecked"
+                (ngModelChange)="getSelectedId($event, data.id)"
+              />
+              <span
+                class="switch-slider"
+                data-checked="&#x2713;"
+                data-unchecked="&#x2715;"
+              ></span>
+            </label>
+
+            <span *ngIf="checkedIdList.length === 1 && id === data.id">
+              <div class="btn-group master" dropdown>
+                <i
+                  class="fa fa-ellipsis-v vertical-icon"
+                  aria-hidden="true"
+                  id="button-split"
+                  type="button"
+                  dropdownToggle
+                  aria-controls="dropdown-split"
+                ></i>
+                <ul
+                  id="dropdown-split"
+                  *dropdownMenu
+                  class="dropdown-menu  dropdown-menu-left"
+                  role="menu"
+                  aria-labelledby="button-split"
+                >
+                  <li role="menuitem">
+                    <a
+                      class="dropdown-item"
+                      (click)="editDocument(data.id)"
+                      >Edit</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      (click)="onDelete(data.id)"
+                      >Delete</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </span>
+          </td>
+          <td>{{ data.tag }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.company }}</td>
+          <td>{{ data.stage }}</td>
+          <td>{{ data.value }}</td>
+          <td>{{ data.closeDate }}</td>
+          <td>{{ data.win }}</td>
+          <td>{{ data.status }}</td>
+          <td>{{ data.lossReason }}</td>
+          <td>{{ data.priority }}</td>
+          <td>{{ data.source }}</td>
+          <td>{{ data.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- table :: start -->
+  </div>
+</div>

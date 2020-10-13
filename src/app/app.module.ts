@@ -44,6 +44,7 @@ import { TabsModule } from "ngx-bootstrap/tabs";
 import { ConfirmationModalComponent } from "./lib/components/confirmation/confirmation-modal.component";
 import { ProcedureModalComponent } from "./lib/components/confirmation/procedure-modal.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TreeModule } from '@circlon/angular-tree-component';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     ReactiveFormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
+    TreeModule 
   ],
   entryComponents: [
     ConfirmationModalComponent, 

@@ -1,0 +1,395 @@
+<!-- Form :: start -->
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-bars"></i> <strong>Data Edit</strong>
+    <span class="float-right">
+      <i
+        class="fa fa-arrow-circle-left"
+        [routerLink]="['/dataEntry']"
+        data-toggle="tooltip"
+        title="Back"
+        style="cursor: pointer;"
+      ></i>
+    </span>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="dataEntryForm" class="form-horizontal">
+      <!-- Alert :: start -->
+      <alert
+        *ngIf="alertMsg === true"
+        type="success"
+        dismissOnTimeout="3000"
+        (onClosed)="alertMsg = true"
+      >
+        Saved.
+      </alert>
+      <alert
+        *ngIf="alertMsg === false"
+        type="warning"
+        dismissOnTimeout="3000"
+        (onClosed)="alertMsg = false"
+      >
+        Error found.
+      </alert>
+      <!-- Alert :: End -->
+
+      <!-- Grid :: start -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- Tag :: start -->
+            <div class="form-group row">
+              <div class=" dataTables_filter col-md-12">
+                <label for="name">Tag :</label>
+                <input
+                  class="form-control"
+                  id="tag"
+                  name="tag"
+                  formControlName="tag"
+                  placeholder="Tag"
+                  autocomplete="tag"
+                  [ngClass]="{ 'is-invalid': submitted && f.tag.errors }"
+                />
+                <div
+                  *ngIf="submitted && f.tag.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.tag.errors.required">
+                    Tag is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Tag :: end -->
+
+            <!-- Name :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Name :</label>
+                <input
+                  class="form-control"
+                  id="name"
+                  name="name"
+                  formControlName="name"
+                  placeholder="Name"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.name.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.name.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.name.errors.required">
+                    Name is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Name :: End -->
+
+            <!-- Company :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Company :</label>
+                <input
+                  class="form-control"
+                  id="company"
+                  name="company"
+                  formControlName="company"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.company.errors
+                  }"
+                >
+                <div
+                  *ngIf="submitted && f.company.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.company.errors.required">
+                    Company is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Company :: start -->
+
+            <!-- Stage :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Stage :</label>
+                <select
+                  class="form-control"
+                  id="stage"
+                  name="stage"
+                  formControlName="stage"
+                  placeholder="Stage"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.stage.errors
+                  }"
+                >
+                <option value="">Please Select</option>
+                  <option *ngFor="let stage of Stage">{{ stage }}</option>
+                </select>
+                <div
+                  *ngIf="submitted && f.stage.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.stage.errors.required">
+                    Stage is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Stage :: end -->
+
+            <!-- Value :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Value :</label>
+                <input
+                  class="form-control"
+                  id="value"
+                  name="value"
+                  formControlName="value"
+                  placeholder="Value"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.value.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.value.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.value.errors.required">
+                    Value is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Value :: end -->
+
+            <!-- Close Date :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Close Date :</label>
+                <input
+                  class="form-control"
+                  id="closeDate"
+                  name="closeDate"
+                  formControlName="closeDate"
+                  placeholder="Close Date"
+                  bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY/MM/DD' }"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.closeDate.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.closeDate.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.closeDate.errors.required">
+                    Close Date is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Close Date :: end -->
+
+            <!-- Win  :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Win :</label>
+                <input
+                  class="form-control"
+                  id="win"
+                  name="win"
+                  formControlName="win"
+                  placeholder="Win%"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.win.errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f.win.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.win.errors.required">
+                    Win is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Win :: end -->
+          </div>
+
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <!-- Status :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Status :</label>
+                <select
+                  class="form-control"
+                  id="status"
+                  name="status"
+                  formControlName="status"
+                  placeholder="Status"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.status.errors
+                  }"
+                >
+                  <option value="">Please Select</option>
+                  <option *ngFor="let status of Status">{{ status }}</option>
+                </select>
+                <div
+                  *ngIf="submitted && f.status.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.status.errors.required">
+                    Status is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Status :: end -->
+
+            <!-- Loss Reason :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Loss Reason :</label>
+                <select
+                  type="text"
+                  class="form-control"
+                  id="lossReason"
+                  name="lossReason"
+                  formControlName="lossReason"
+                  placeholder="Loss Reason"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.lossReason.errors
+                  }"
+                >
+                  <option value="">Please Select</option>
+                  <option *ngFor="let lossReason of LossReason">{{ lossReason }}</option>
+                </select>
+                <div
+                  *ngIf="submitted && f.lossReason.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.lossReason.errors.required">
+                    Loss Reason is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Loss Reason :: end -->
+
+            <!-- Priority :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Priority :</label>
+                <select
+                  class="form-control"
+                  id="priority"
+                  name="priority"
+                  formControlName="priority"
+                  placeholder="Priority"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.priority.errors
+                  }"
+                >
+                  <option value="">Please Select</option>
+                  <option *ngFor="let priority of Priority">{{ priority }}</option>
+                </select>
+                <div
+                  *ngIf="submitted && f.priority.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.priority.errors.required">
+                    Priority is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Priority :: end -->
+
+            <!-- Source :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Source :</label>
+                <select
+                  class="form-control"
+                  id="source"
+                  name="source"
+                  formControlName="source"
+                  placeholder="Source"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.source.errors
+                  }"
+                >
+                  <option value="">Please Select</option>
+                  <option *ngFor="let source of Source">{{ source }}</option>
+                </select>
+                <div
+                  *ngIf="submitted && f.source.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.source.errors.required">
+                    Source is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Source :: end -->
+
+            <!-- Description :: start -->
+            <div class="form-group row">
+              <div class="col-md-12">
+                <label for="name">Description :</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  formControlName="description"
+                  placeholder="description"
+                  [ngClass]="{
+                    'is-invalid': submitted && f.description.errors
+                  }"
+                ></textarea>
+                <div
+                  *ngIf="submitted && f.description.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.description.errors.required">
+                    Description is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Description :: end -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid :: start -->
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="float-right">
+      <button
+        class="btn btn-sm btn-danger"
+        type="reset"
+        [routerLink]="['/dataEntry']"
+      >
+        Cancel
+      </button>
+      <button
+        class="btn btn-sm btn-primary"
+        type="submit"
+        (click)="onFormSubmit(dataEntryForm.value)"
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Form :: End -->

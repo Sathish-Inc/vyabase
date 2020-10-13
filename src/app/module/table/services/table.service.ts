@@ -7,7 +7,7 @@ import { map, catchError } from "rxjs/operators";
   providedIn: 'root'
 })
 export class TableService {
-  public url = " http://localhost:3000/datas";
+  public url = "http://localhost:3000/datas";
 
   constructor(private http: HttpClient) { }
 

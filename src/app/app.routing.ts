@@ -53,6 +53,13 @@ export const routes: Routes = [
           import(
             "./module/table/table.module"
           ).then((m) => m.TableModule),
+      },
+      {
+        path: "tree",
+        loadChildren: () =>
+          import(
+            "./module/tree/tree.module"
+          ).then((m) => m.TreesModule),
       }
     ],
   },

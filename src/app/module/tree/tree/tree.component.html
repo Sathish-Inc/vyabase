@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-bars"></i><strong>Tree</strong>
+  </div>
+  <div class="card-body">
+    <h2>Filter</h2>
+    <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" placeholder="filter nodes"/>
+    <button (click)="tree.treeModel.clearFilter()">Clear Filter</button>
+     <tree-root #tree [focused]="true" [options]="options" [nodes]="nodes"></tree-root>
+    <!-- <tree-root [nodes]="nodes" [options]="options"></tree-root> -->
+  </div>
+</div>
